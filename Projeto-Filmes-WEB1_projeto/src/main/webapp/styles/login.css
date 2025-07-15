@@ -1,0 +1,73 @@
+/* --- VARIAVEIS GLOBAIS DE ESTILO --- */
+:root {
+    --cor-fundo: #0c0f1a;
+    --cor-texto: #e0e0e0;
+    --cor-titulo: #ffffff;
+    --cor-destaque: #3d9eff;
+    --cor-destaque-hover: #65b4ff;
+    --fonte-titulo: 'Montserrat', sans-serif;
+    --fonte-corpo: 'Lato', sans-serif;
+}
+
+/* --- ESTILO DO CORPO DA PÁGINA --- */
+body {
+    display: flex; /* Permite que o footer grude no final */
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: var(--fonte-corpo);
+    background: linear-gradient(rgba(12, 15, 26, 0.85), rgba(12, 15, 26, 0.95)), url(https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=1974) no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* --- ÁREA PRINCIPAL DO LOGIN --- */
+/* Esta nova classe centraliza o formulário e cria o espaço com o header */
+.login-main {
+    flex-grow: 1; /* Faz esta seção crescer para ocupar o espaço disponível */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    padding-top: 100px;
+}
+
+/* --- CONTAINER DO LOGIN (EFEITO DE VIDRO) --- */
+.login-container {
+    width: 100%;
+    max-width: 450px;
+    padding: 3rem;
+    border-radius: 20px;
+    background: rgba(30, 40, 60, 0.5);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* --- CABEÇALHO DO LOGIN --- */
+.login-header {
+    color: var(--cor-texto);
+    text-align: center;
+    margin-bottom: 2.5rem;
+    font-family: var(--fonte-titulo);
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.login-header::before {
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    margin-top: 20px;
+}
+
+/* --- CAMPOS DO FORMULÁRIO --- */
+.form-label {
+    color: var(--cor-texto);
+    font-weight: 700;
+}
+
+.form-control {
+    background-color: rgba(0, 0, 0, 0.2);
+}
