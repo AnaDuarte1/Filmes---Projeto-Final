@@ -34,25 +34,10 @@ public class UsuarioDAO {
         return instance;
     }
 
-    // --- INÍCIO DA ALTERAÇÃO CRÍTICA PARA O ERRO 500 ---
-    // Método para definir o caminho do arquivo de forma mais robusta e segura
+
     private String getCaminhoArquivo() {
         String userHome = System.getProperty("user.home");
-        // Define um diretório específico para os dados da sua aplicação dentro da pasta do usuário
-        String appDataDir = userHome + File.separator + "cineweb_data";
-        File dir = new File(appDataDir);
-        if (!dir.exists()) {
-            // Tenta criar o diretório se ele não existir
-            if (dir.mkdirs()) {
-                System.out.println("Diretório de dados criado: " + appDataDir);
-            } else {
-                System.err.println("Falha ao criar o diretório de dados: " + appDataDir);
-                // Se a criação do diretório falhar, usa um diretório temporário como fallback.
-                // ATENÇÃO: Dados em diretórios temporários podem ser apagados pelo sistema.
-                return System.getProperty("java.io.tmpdir") + File.separator + "saidaUsuario.json";
-            }
-        }
-        return appDataDir + File.separator + "saidaUsuario.json";
+        return userHome + File.separator + "Downloads" + File.separator + "Usuarios.txt";
     }
 
     private void carregarUsuarios() {
