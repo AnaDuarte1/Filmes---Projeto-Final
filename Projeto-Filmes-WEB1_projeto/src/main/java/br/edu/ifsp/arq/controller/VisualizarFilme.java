@@ -20,8 +20,8 @@ public class VisualizarFilme extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         try {
-            String id = request.getParameter("id"); // Mudança aqui: id agora é String
-            Filme filme = FilmeDAO.getInstance().getFilme(id); // Usa getFilme(String id)
+            String id = request.getParameter("id"); 
+            Filme filme = FilmeDAO.getInstance().getFilme(id); 
 
             if (filme == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);

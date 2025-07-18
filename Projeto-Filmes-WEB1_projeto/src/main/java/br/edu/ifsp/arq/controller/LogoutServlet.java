@@ -16,14 +16,14 @@ public class LogoutServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session != null) {
-            session.invalidate(); // Encerra a sessão
+            session.invalidate(); 
         }
-        // Retorna uma resposta OK para o JavaScript saber que o processo foi concluído
+     
         response.setStatus(HttpServletResponse.SC_OK);
     }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response); // Permite o logout via GET também, se necessário
+        doPost(request, response);
     }
 }

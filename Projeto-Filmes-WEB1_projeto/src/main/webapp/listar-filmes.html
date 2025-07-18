@@ -48,8 +48,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             const tbody = document.getElementById('tabela-filmes-corpo');
 
-            // ***** ALTERAÇÃO AQUI *****
-            // A URL agora é relativa ('listar-filmes') em vez de absoluta ('/listar-filmes')
             fetch('listar-filmes')
                 .then(response => {
                     if (!response.ok) {

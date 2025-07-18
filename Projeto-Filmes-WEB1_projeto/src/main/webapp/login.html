@@ -49,13 +49,11 @@
             const messageContainer = document.getElementById('message-container');
             messageContainer.innerHTML = '';
 
-            // Ajustado para o context path /filmes
             fetch('/filmes/login', {
                 method: 'POST',
                 body: new URLSearchParams(formData)
             })
             .then(response => {
-                // Adicionado tratamento para respostas não JSON
                 const contentType = response.headers.get("content-type");
                 if (!response.ok || !(contentType && contentType.includes("application/json"))) {
                     return response.text().then(text => {
@@ -67,7 +65,6 @@
             })
             .then(data => {
                 if (data.status === 'sucesso') {
-                    messageContainer.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
                     setTimeout(() => {
                         window.location.href = 'home.html';
                     }, 1000);

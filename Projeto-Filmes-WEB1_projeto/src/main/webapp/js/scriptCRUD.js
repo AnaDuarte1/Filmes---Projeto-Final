@@ -1,5 +1,3 @@
-// scriptCRUD.js
-
 document.addEventListener('DOMContentLoaded', () => {
     carregarComponente('header-placeholder', 'header.html', inicializarPagina);
     carregarComponente('footer-placeholder', 'footer.html');
@@ -30,18 +28,17 @@ function carregarComponente(idPlaceholder, urlComponente, callback) {
 }
 
 function inicializarPagina() {
-    // Agora o fetch é para o SessionStatusServlet que criamos, com o context path /filmes
     fetch('/filmes/session-status') 
         .then(response => {
-            // Verifica se a resposta é JSON antes de tentar parsear
+           
             const contentType = response.headers.get("content-type");
             if (response.ok && contentType && contentType.includes("application/json")) {
                 return response.json();
             } else if (response.ok) {
-                // Se a resposta é OK mas não JSON (ex: vazio), trata como não logado
+               
                 return { logado: false, tipo: 'visitante' };
             } else {
-                // Se a resposta não for OK, tenta ler como texto para depuração
+               
                 return response.text().then(text => {
                     console.error("Erro na resposta do session-status (não JSON):", text);
                     throw new Error(`Serviço de sessão indisponível ou resposta inválida. Status: ${response.status}`);
@@ -107,19 +104,16 @@ function atualizarHeader(usuario) {
 }
 
 function logout() {
-    // Ajustado para o context path /filmes
     fetch('/filmes/logout', { method: 'POST' })
         .then(response => {
             if (response.ok) {
                 window.location.href = 'home.html'; 
             } else {
-                console.error('Falha ao fazer logout.');
-                showCustomAlert('Falha ao fazer logout. Tente novamente.', 'danger');
+                console.error('Falha ao fazer logout.'); 
             }
         })
         .catch(error => {
-            console.error('Erro na requisição de logout:', error);
-            showCustomAlert('Ocorreu um erro na comunicação com o servidor ao tentar fazer logout.', 'danger');
+            console.error('Erro na requisição de logout:', error); 
         });
 }
 
@@ -133,7 +127,6 @@ function carregarDetalhesFilme(usuario) {
         return;
     }
 
-    // Ajustado para o context path /filmes
     fetch(`/filmes/visualizar-filme?id=${filmeId}`)
         .then(response => {
             const contentType = response.headers.get("content-type");
@@ -154,7 +147,7 @@ function carregarDetalhesFilme(usuario) {
         })
         .catch(error => {
             container.innerHTML = `<div class="alert alert-danger text-center"><h4>Ops! Não foi possível carregar o filme.</h4><p>${error.message}</p></div>`;
-            console.error("Erro ao buscar detalhes do filme:", error);
+            console.error("Erro ao buscar detalhes do filme:", error); 
         });
 }
 
@@ -204,53 +197,35 @@ function renderizarHtmlFilme(container, filme, usuario) {
         </div>`;
 }
 
-function showCustomAlert(message, type = 'info', callback = null) {
-    window.alert(message);
-    if (callback) {
-        callback();
-    }
-}
-
-function showCustomConfirm(message, callbackYes, callbackNo = null) {
-    if (window.confirm(message)) {
-        callbackYes();
-    } else if (callbackNo) {
-        callbackNo();
-    }
-}
-
 function excluirFilme(id, titulo) {
     const tituloEscapado = titulo.replace(/'/g, "\\'"); 
-    showCustomConfirm(`Tem certeza que deseja excluir o filme "${tituloEscapado}"?`, () => {
-        // Ajustado para o context path /filmes
-        fetch('/filmes/excluir-filme', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            body: `id=${id}`
-        })
-        .then(response => {
-            const contentType = response.headers.get("content-type");
-            if (!response.ok || !(contentType && contentType.includes("application/json"))) {
-                return response.text().then(text => {
-                    console.error("Erro na resposta de exclusão (não JSON ou não OK):", text);
-                    throw new Error(`Erro ao excluir filme (Status: ${response.status}).`);
-                });
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.status === 'sucesso') {
-                showCustomAlert(data.mensagem, 'success', () => {
-                    window.location.href = 'listar-filmes.html';
-                });
-            } else {
-                showCustomAlert(`Erro ao excluir: ${data.mensagem}`, 'danger');
-            }
-        })
-        .catch(error => {
-            console.error('Erro na requisição de exclusão:', error);
-            showCustomAlert('Ocorreu um erro na comunicação com o servidor.', 'danger');
-        });
+    console.log(`Tentando excluir o filme: "${tituloEscapado}" (ID: ${id})`); 
+    
+    fetch('/filmes/excluir-filme', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: `id=${id}`
+    })
+    .then(response => {
+        const contentType = response.headers.get("content-type");
+        if (!response.ok || !(contentType && contentType.includes("application/json"))) {
+            return response.text().then(text => {
+                console.error("Erro na resposta de exclusão (não JSON ou não OK):", text); 
+                throw new Error(`Erro ao excluir filme (Status: ${response.status}).`);
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.status === 'sucesso') {
+            console.log(data.mensagem);
+            window.location.href = 'listar-filmes.html'; 
+        } else {
+            console.error(`Erro ao excluir: ${data.mensagem}`); 
+        }
+    })
+    .catch(error => {
+        console.error('Erro na requisição de exclusão:', error); 
     });
 }
 
@@ -283,9 +258,9 @@ function carregarComentariosDoFilme(filmeId, usuario) {
             const form = event.target;
             const formData = new FormData(form);
             const feedbackDiv = document.getElementById('feedback-comentario');
-            feedbackDiv.innerHTML = '';
+            feedbackDiv.innerHTML = ''; 
 
-            // Ajustado para o context path /filmes
+            
             fetch('/filmes/adicionar-comentario', {
                 method: 'POST',
                 body: new URLSearchParams(formData)
@@ -294,7 +269,7 @@ function carregarComentariosDoFilme(filmeId, usuario) {
                 const contentType = response.headers.get("content-type");
                 if (!response.ok || !(contentType && contentType.includes("application/json"))) {
                     return response.text().then(text => {
-                        console.error("Erro na resposta de adicionar comentário (não JSON ou não OK):", text);
+                        console.error("Erro na resposta de adicionar comentário (não JSON ou não OK):", text); // Log para depuração
                         throw new Error(`Erro ao adicionar comentário (Status: ${response.status}).`);
                     });
                 }
@@ -302,16 +277,16 @@ function carregarComentariosDoFilme(filmeId, usuario) {
             })
             .then(data => {
                 if (data.status === 'sucesso') {
-                    showCustomAlert(data.mensagem, 'success');
+                    feedbackDiv.innerHTML = `<div class="alert alert-success">${data.mensagem}</div>`; // Mensagem na div
                     form.reset();
-                    carregarComentariosDoFilme(filmeId, usuario); 
+                    carregarComentariosDoFilme(filmeId, usuario); // Recarrega comentários
                 } else {
-                    showCustomAlert(`Erro ao adicionar comentário: ${data.mensagem}`, 'danger');
+                    feedbackDiv.innerHTML = `<div class="alert alert-danger">${data.mensagem}</div>`; // Mensagem na div
                 }
             })
             .catch(error => {
-                console.error('Erro na requisição de comentário:', error);
-                showCustomAlert('Ocorreu um erro na comunicação com o servidor ao adicionar comentário.', 'danger');
+                console.error('Erro na requisição de comentário:', error); // Log para depuração
+                feedbackDiv.innerHTML = `<div class="alert alert-danger">Ocorreu um erro na comunicação com o servidor ao adicionar comentário.</div>`; // Mensagem na div
             });
         });
     } else if (usuario.logado) {
@@ -320,13 +295,13 @@ function carregarComentariosDoFilme(filmeId, usuario) {
         comentariosSection.innerHTML += `<p class="text-muted">Faça <a href="login.html">login</a> para deixar seu comentário.</p>`;
     }
 
-    // Ajustado para o context path /filmes
+   
     fetch(`/filmes/listar-comentarios?filmeId=${filmeId}`) 
         .then(response => {
             const contentType = response.headers.get("content-type");
             if (!response.ok || !(contentType && contentType.includes("application/json"))) {
                 return response.text().then(text => {
-                    console.error("Erro na resposta de listar comentários (não JSON ou não OK):", text);
+                    console.error("Erro na resposta de listar comentários (não JSON ou não OK):", text); // Log para depuração
                     throw new Error(`Erro ao carregar comentários (Status: ${response.status}).`);
                 });
             }
@@ -337,7 +312,7 @@ function carregarComentariosDoFilme(filmeId, usuario) {
             listaComentariosDiv.className = 'mt-4';
             if (comentarios && comentarios.length > 0) {
                 comentarios.forEach(comentario => {
-                    // Garante que autor e autor.nome existam
+                    
                     const autorNome = comentario.autor ? comentario.autor.nome : 'Anônimo';
                     listaComentariosDiv.innerHTML += `
                         <div class="card mb-2 p-3 shadow-sm">
@@ -352,7 +327,7 @@ function carregarComentariosDoFilme(filmeId, usuario) {
             comentariosSection.appendChild(listaComentariosDiv);
         })
         .catch(error => {
-            console.error('Erro ao carregar comentários:', error);
-            comentariosSection.innerHTML += `<div class="alert alert-warning mt-3">Não foi possível carregar os comentários: ${error.message}</div>`;
+            console.error('Erro ao carregar comentários:', error); // Log para depuração
+            comentariosSection.innerHTML += `<div class="alert alert-warning mt-3">Não foi possível carregar os comentários: ${error.message}</div>`; // Mensagem na div
         });
 }

@@ -62,11 +62,11 @@ public class FilmeDAO {
         return new ArrayList<>(listaDeFilmes);
     }
 
-    // Salva lista completa como JSON array no arquivo
+
     public boolean salvarListaFilmes(ArrayList<Filme> lista) {
         Gson gson = new Gson();
         try (FileWriter fw = new FileWriter(getCaminhoArquivo(), StandardCharsets.UTF_8)) {
-            gson.toJson(lista, fw);  // grava como array JSON
+            gson.toJson(lista, fw);  
             listaDeFilmes = lista;
             return true;
         } catch (IOException e) {
@@ -75,9 +75,8 @@ public class FilmeDAO {
         }
     }
 
-    // Adiciona filme garantindo ID único, atualizando lista e arquivo
     public boolean adicionarFilme(Filme filme) {
-        ArrayList<Filme> lista = getListaFilmes(); // garante lista atualizada
+        ArrayList<Filme> lista = getListaFilmes(); 
 
         int novoId = 1;
         if (!lista.isEmpty()) {

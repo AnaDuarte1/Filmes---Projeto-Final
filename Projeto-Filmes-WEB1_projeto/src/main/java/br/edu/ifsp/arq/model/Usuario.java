@@ -9,12 +9,12 @@ public class Usuario implements Serializable {
     private String nome;
     private String email;
     private String senha;
-    private String tipo; // Ex: "admin", "avaliador", "comum"
+    private String tipo; 
 
     public Usuario() {
     	
     }
-    // Construtor com ID
+
     public Usuario(int id, String nome, String email, String senha, String tipo) {
         this.id = id;
         this.nome = nome;
@@ -23,7 +23,6 @@ public class Usuario implements Serializable {
         this.tipo = tipo;
     }
 
-    // Construtor sem ID (para casos onde o ID é gerado pelo DAO)
     public Usuario(String nome, String email, String senha, String tipo) {
         this.nome = nome;
         this.email = email;

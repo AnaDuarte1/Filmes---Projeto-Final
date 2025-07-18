@@ -25,16 +25,16 @@ public class SessionServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
-        HttpSession session = request.getSession(false); // Não cria nova sessão se não existir
+        HttpSession session = request.getSession(false); 
         Usuario usuarioLogado = (session != null) ? (Usuario) session.getAttribute("usuarioLogado") : null;
 
         Gson gson = new Gson();
         
         if (usuarioLogado != null) {
-            // Se houver um usuário logado, retorna seus dados como JSON
+
             response.getWriter().write(gson.toJson(usuarioLogado));
         } else {
-            // Se não houver usuário logado, retorna um objeto vazio ou com status de não logado
+
             Map<String, Boolean> status = new HashMap<>();
             status.put("logado", false);
             response.getWriter().write(gson.toJson(status));

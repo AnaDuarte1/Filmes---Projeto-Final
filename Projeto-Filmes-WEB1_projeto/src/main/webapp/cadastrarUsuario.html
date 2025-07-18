@@ -54,20 +54,16 @@
             
             const form = event.target;
             const formData = new FormData(form);
-            const messageContainer = document.getElementById('message-container');
-            messageContainer.innerHTML = '';
-
-            // Ajustado para o context path /filmes
+            
             fetch('/filmes/cadastrar', {
                 method: 'POST',
                 body: new URLSearchParams(formData)
             })
             .then(response => {
-                // Adicionado tratamento para respostas não JSON
                 const contentType = response.headers.get("content-type");
                 if (!response.ok || !(contentType && contentType.includes("application/json"))) {
                     return response.text().then(text => {
-                        console.error("Erro na resposta de cadastro (não JSON ou não OK):", text);
+                        console.error("Erro na resposta de cadastro (não JSON ou não OK):", text); 
                         throw new Error(`Erro ao cadastrar (Status: ${response.status}).`);
                     });
                 }
@@ -75,17 +71,15 @@
             })
             .then(data => {
                 if (data.status === 'sucesso') {
-                    messageContainer.innerHTML = `<div class="alert alert-success">${data.mensagem}</div>`;
                     setTimeout(() => {
                         window.location.href = 'login.html';
                     }, 1500); 
                 } else {
-                    messageContainer.innerHTML = `<div class="alert alert-danger">${data.mensagem}</div>`;
+                	console.error('Erro:', error);  
                 }
             })
             .catch(error => {
-                console.error('Erro ao tentar cadastrar:', error);
-                messageContainer.innerHTML = `<div class="alert alert-danger">Ocorreu um erro. Tente novamente.</div>`;
+                console.error('Erro ao tentar cadastrar:', error);  
             });
         });
     </script>    

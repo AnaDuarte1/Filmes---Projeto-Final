@@ -7,7 +7,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <div id="header-placeholder"></div>
 
     <div class="error-container">
@@ -16,15 +15,14 @@
         </div>
         <h1 class="error-title">Algo deu errado</h1>
         <p class="error-message">
-            Desculpe, n„o conseguimos completar sua solicitaÁ„o.<br>
-            Isso pode ter acontecido por um problema interno, ou pela tentativa de acessar uma p·gina que n„o existe.
+            Desculpe, n√£o conseguimos completar sua solicita√ß√£o.<br>
+            Isso pode ter acontecido por um problema interno, ou pela tentativa de acessar uma p√°gina que n√£o existe.
         </p>
         <a href="home.html" class="btn-home">
             <i class="fas fa-home me-2"></i> Voltar para a Home
         </a>
     </div>
 
-    <!-- Footer -->
     <div id="footer-placeholder"></div>
 
     <script>
@@ -42,7 +40,7 @@
 
         const errMessage = new URLSearchParams(window.location.search).get('errMessage');
         if (errMessage) {
-            alert(errMessage);
+            console.error("Mensagem de erro recebida na URL:", errMessage);
         }
     </script>
 

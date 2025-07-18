@@ -43,28 +43,23 @@
         document.getElementById('filmeForm').addEventListener('submit', function(event) {
             event.preventDefault(); 
             const formData = new FormData(this);
-            const feedbackDiv = document.getElementById('feedback-message');
             
-            fetch('criar-filme', { // Certifique-se de que este é o endpoint correto para criar filmes
+            fetch('criar-filme', { 
                 method: 'POST',
                 body: formData 
             })
             .then(response => response.json().then(data => ({ status: response.status, body: data })))
             .then(({ status, body }) => {
-                if (status === 200 || status === 201) { // Sucesso
-                    // Usar showCustomAlert para consistência
-                    showCustomAlert(body.mensagem, 'success', () => {
+                if (status === 200 || status === 201) { 
+                    setTimeout(() => {
                         window.location.href = `visualizar-filme.html?id=${body.filmeId}`;
-                    });
-                } else { // Erro vindo do servidor
-                    // Usar showCustomAlert para consistência
-                    showCustomAlert(body.mensagem || 'Ocorreu um erro desconhecido.', 'danger');
+                    }, 1000);
+                } else { 
+                	console.error('Erro:', error); 
                 }
             })
             .catch(error => {
-                console.error('Erro na requisição de cadastro de filme:', error);
-                // Usar showCustomAlert para consistência
-                showCustomAlert('Ocorreu um erro na comunicação com o servidor.', 'danger');
+                console.error('Erro na requisição de cadastro de filme:', error); 
             });
         });
     </script>

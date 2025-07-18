@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
         Map<String, String> result = new HashMap<>();
         Gson gson = new Gson();
 
-        UsuarioDAO usuarioDAO = UsuarioDAO.getInstance(); // Obtém a instância Singleton
+        UsuarioDAO usuarioDAO = UsuarioDAO.getInstance(); 
 
         try {
             Usuario usuario = usuarioDAO.autenticar(email, senha);
@@ -49,9 +49,9 @@ public class LoginServlet extends HttpServlet {
                 LOGGER.info("Login bem-sucedido para o usuário: " + usuario.getNome() + " (" + usuario.getEmail() + ") - Tipo: " + usuario.getTipo());
                 result.put("status", "sucesso");
                 result.put("message", "Login bem-sucedido!");
-                result.put("userType", usuario.getTipo()); // Envia o tipo de usuário para o frontend
+                result.put("userType", usuario.getTipo()); 
             } else {
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); 
                 LOGGER.warning("Falha no login para o email: " + email + " - Credenciais inválidas.");
                 result.put("status", "erro");
                 result.put("message", "Email ou senha inválidos.");

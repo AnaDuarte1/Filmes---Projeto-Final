@@ -31,18 +31,16 @@
         	
             const filmeId = new URLSearchParams(window.location.search).get('id');
             const form = document.getElementById('editarFilmeForm');
-            
+
             if (!filmeId) {
                 document.querySelector('main').innerHTML = '<div class="alert alert-danger">ID do filme não fornecido.</div>';
                 return;
             }
 
-            // Carrega os dados do filme para preencher o formulário
-            // A URL já está correta, pois o servlet espera um ID String
+
             fetch(`editar-filme?id=${filmeId}`)
                 .then(response => {
                     if (!response.ok) {
-                        // Tenta ler a mensagem de erro do JSON se a resposta não for OK
                         return response.json().then(errorData => {
                             throw new Error(errorData.mensagem || 'Filme não encontrado');
                         });
@@ -62,36 +60,30 @@
                     form.categoria.value = filme.categoria;
                 })
                 .catch(error => {
-                    console.error('Erro ao carregar filme para edição:', error);
+                    console.error('Erro ao carregar filme para edição:', error); 
                     document.querySelector('main').innerHTML = `<div class="alert alert-danger">${error.message || error}</div>`;
                 });
 
-            // Envia as atualizações
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
-                const feedbackDiv = document.getElementById('feedback-message');
-                feedbackDiv.innerHTML = '';
 
-                fetch('atualizar-filme', { // Endpoint do servlet de atualização
+                fetch('atualizar-filme', { 
                     method: 'POST',
                     body: new FormData(this)
                 })
                 .then(response => response.json().then(data => ({ ok: response.ok, data })))
                 .then(({ ok, data }) => {
                     if (ok) {
-                        // Usar showCustomAlert para consistência
-                        showCustomAlert(data.mensagem, 'success', () => {
+                        
+                        setTimeout(() => {
                             window.location.href = `visualizar-filme.html?id=${data.filmeId}`;
-                        });
+                        }, 1000);
                     } else {
-                        // Usar showCustomAlert para consistência
-                        showCustomAlert(data.mensagem, 'danger');
+                    	console.error('Erro:', error); 
                     }
                 })
                 .catch(error => {
-                    console.error('Erro ao enviar atualizações do filme:', error);
-                    // Usar showCustomAlert para consistência
-                    showCustomAlert('Ocorreu um erro na comunicação com o servidor.', 'danger');
+                    console.error('Erro ao enviar atualizações do filme:', error); 
                 });
             });
         });

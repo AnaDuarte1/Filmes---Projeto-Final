@@ -3,19 +3,17 @@ package br.edu.ifsp.arq.model;
 import br.edu.ifsp.arq.model.Comentario;
 
 public class Comentario {
-    private int id; // ID do comentário
+    private int id; 
     private String texto;
     private int nota;
-    private Usuario autor; // O autor do comentário
-
-    // Construtor
+    private Usuario autor; 
+    
     public Comentario(String texto, int nota, Usuario autor) {
         this.texto = texto;
         this.nota = nota;
         this.autor = autor;
     }
 
-    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getTexto() { return texto; }

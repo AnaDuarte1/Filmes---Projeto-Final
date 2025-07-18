@@ -18,22 +18,16 @@ import java.util.Map;
 @WebServlet("/adicionar-comentario")
 public class AdicionarComentario extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    // Não é mais necessário ter atributos de instância para DAOs Singletons
-    // private FilmeDAO filmeDAO;
-    // private UsuarioDAO usuarioDAO;
 
     public AdicionarComentario() {
         super();
-        // Não inicialize DAOs aqui, pois eles são Singletons
-        // this.filmeDAO = FilmeDAO.getInstance();
-        // this.usuarioDAO = UsuarioDAO.getInstance(); // Correção aqui: usar getInstance()
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8"); // Adicionado para garantir UTF-8 na resposta
+        response.setCharacterEncoding("UTF-8"); 
         
         HttpSession session = request.getSession(false);
         Usuario usuarioLogado = (session != null) ? (Usuario) session.getAttribute("usuarioLogado") : null;
@@ -41,7 +35,6 @@ public class AdicionarComentario extends HttpServlet {
         Map<String, String> resposta = new HashMap<>();
         Gson gson = new Gson();
 
-        // 1. Verifica se o usuário está logado
         if (usuarioLogado == null) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             resposta.put("status", "erro");
@@ -50,9 +43,8 @@ public class AdicionarComentario extends HttpServlet {
             return;
         }
 
-        // 2. Verifica se o usuário é do tipo "avaliador"
         if (!"avaliador".equals(usuarioLogado.getTipo())) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403 Forbidden
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN); 
             resposta.put("status", "erro");
             resposta.put("mensagem", "Apenas usuários avaliadores podem adicionar comentários.");
             response.getWriter().write(gson.toJson(resposta));
@@ -60,13 +52,11 @@ public class AdicionarComentario extends HttpServlet {
         }
 
         try {
-            // Obtém os parâmetros da requisição
             String filmeIdString = request.getParameter("filmeId");
             int filmeId = Integer.parseInt(filmeIdString);
             String texto = request.getParameter("texto");
             int nota = Integer.parseInt(request.getParameter("nota"));
 
-            // Validação básica dos parâmetros
             if (texto == null || texto.trim().isEmpty() || nota < 1 || nota > 5) {
                 response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
                 resposta.put("status", "erro");
@@ -75,13 +65,10 @@ public class AdicionarComentario extends HttpServlet {
                 return;
             }
 
-            // Cria o objeto Comentario
             Comentario comentario = new Comentario(texto, nota, usuarioLogado);
             
-            // Obtém a instância Singleton do FilmeDAO
             FilmeDAO filmeDAO = FilmeDAO.getInstance();
 
-            // Adiciona o comentário ao filme
             boolean comentarioAdicionado = filmeDAO.adicionarComentario(filmeId, comentario);
 
             if (comentarioAdicionado) {
@@ -89,7 +76,7 @@ public class AdicionarComentario extends HttpServlet {
                 resposta.put("mensagem", "Comentário adicionado com sucesso!");
                 response.getWriter().write(gson.toJson(resposta));
             } else {
-                response.setStatus(HttpServletResponse.SC_NOT_FOUND); // Filme não encontrado
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 resposta.put("status", "erro");
                 resposta.put("mensagem", "Filme não encontrado para adicionar o comentário.");
                 response.getWriter().write(gson.toJson(resposta));
@@ -101,7 +88,7 @@ public class AdicionarComentario extends HttpServlet {
             resposta.put("mensagem", "ID do filme ou nota inválidos.");
             response.getWriter().write(gson.toJson(resposta));
         } catch (Exception e) {
-            e.printStackTrace(); // Para depuração no console do servidor
+            e.printStackTrace(); 
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             resposta.put("status", "erro");
             resposta.put("mensagem", "Erro interno ao processar seu comentário: " + e.getMessage());

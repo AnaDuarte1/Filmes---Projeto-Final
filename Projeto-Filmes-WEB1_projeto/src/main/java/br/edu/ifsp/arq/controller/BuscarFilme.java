@@ -18,12 +18,6 @@ import java.util.stream.Collectors; // Importar Collectors
 @WebServlet("/buscar-filme")
 public class BuscarFilme extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    // Não é necessário ter um filmeDAO como atributo se ele é um Singleton
-    // private final FilmeDAO filmeDAO; 
-
-    public BuscarFilme() {
-        // this.filmeDAO = FilmeDAO.getInstance(); // Não é mais necessário
-    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,17 +33,15 @@ public class BuscarFilme extends HttpServlet {
             String palavraChave = request.getParameter("palavraChave");
             
             if (palavraChave == null || palavraChave.trim().isEmpty()) {
-                // Se a palavra-chave estiver vazia, retorna todos os filmes
+                
                 List<Filme> todosOsFilmes = FilmeDAO.getInstance().getListaFilmes();
                 String jsonResponse = gson.toJson(todosOsFilmes);
                 response.getWriter().write(jsonResponse);
                 return;
             }
-
-            // Transforma a palavra-chave para minúsculas para busca case-insensitive
+           
             String p = palavraChave.toLowerCase();
             
-            // Pega a lista completa de filmes e filtra
             List<Filme> filmesEncontrados = FilmeDAO.getInstance().getListaFilmes().stream()
                 .filter(filme -> filme.getTitulo().toLowerCase().contains(p) ||
                                  filme.getDiretor().toLowerCase().contains(p) ||

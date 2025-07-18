@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>CineWeb</title>
+   	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<link rel="stylesheet" href="styles/home.css">
+	
+</head>
+<body >
+
+<div id="header-placeholder"></div>
+
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="hero-title">CineWeb</h1>
+        <p class="hero-subtitle">Descubra os melhores filmes em nossa coleção exclusiva</p>
+        <form action="buscar-filme" method="get">
+            <div class="search-box">
+                <div class="input-group">
+                    <input type="text" class="form-control form-control-lg" name="palavraChave" placeholder="Pesquise por filmes, atores ou diretores..." required>
+                    <div class="input-group-append">
+                        <button class="btn btn-custom" type="submit">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<div class="container">
+
+    <h2 class="section-title">Em Destaque</h2>
+    <div id="filmeCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#filmeCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#filmeCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="imagem/missaoImpossivel.jpeg" class="d-block w-100" alt="Missão Impossível">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Missão Impossível – O Acerto Final</h5>
+                    <p>Ethan Hunt e seus amigos encaram mais um desafio internacional...</p>
+                    <a href="https://www.primevideo.com/-/pt/detail/Miss%C3%A3o-Imposs%C3%ADvel-O-Acerto-Final/0KT5HNE3OBR4TOFORPUHDR4G9U" class="btn btn-custom">Assistir Agora</a>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="imagem/premonicao.jpg" class="d-block w-100" alt="Premonição">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Premonição</h5>
+                    <p>A estudante universitária Stefanie é atormentada por um pesadelo recorrente...</p>
+                    <a href="https://www.primevideo.com/-/pt/detail/Premoni%C3%A7%C3%A3o-6-La%C3%A7os-de-Sangue/0HQWQLL7HKLA4LEUNTS3ANVMP7" class="btn btn-custom">Assistir Agora</a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#filmeCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#filmeCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Próximo</span>
+        </button>
+    </div>
+
+    <h2 class="section-title">Categorias</h2>
+    <div class="text-center mb-5">
+        <span class="category-badge badge bg-primary text-white" style="cursor:pointer;">Todos</span>
+        <span class="category-badge badge bg-secondary" style="cursor:pointer;">Ação</span>
+        <span class="category-badge badge bg-secondary" style="cursor:pointer;">Aventura</span>
+        <span class="category-badge badge bg-secondary" style="cursor:pointer;">Drama</span>
+        <span class="category-badge badge bg-secondary" style="cursor:pointer;">Comédia</span>
+        <span class="category-badge badge bg-secondary" style="cursor:pointer;">Ficção Científica</span>
+        <span class="category-badge badge bg-secondary" style="cursor:pointer;">Terror</span>
+        <span class="category-badge badge bg-secondary" style="cursor:pointer;">Romance</span>
+        <span class="category-badge badge bg-secondary" style="cursor:pointer;">Documentário</span>
+    </div>
+
+    <h2 class="section-title">Nossa Coleção</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3" id="colecao-filmes">
+        <div class="col mb-4 filme-card" data-categoria="Aventura">
+            <div class="card h-100">
+                <img src="imagem/missaoImpossivel.jpeg" class="card-img-top" alt="Missão Impossível">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Missão Impossível: O Acerto Final</h5>
+                    <p class="card-text"><small class="text-muted">Tom Cruise • 2025</small></p>
+                    <p class="card-text text-truncate-2">Ethan Hunt e seus amigos encaram mais um desafio internacional...</p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                        <span class="badge bg-secondary">Digital</span>
+                        <a href="#" class="btn btn-sm btn-custom">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4 filme-card" data-categoria="Aventura">
+            <div class="card h-100">
+                <img src="imagem/premonicao.jpg" class="card-img-top" alt="Premonição">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">Premonição</h5>
+                    <p class="card-text"><small class="text-muted">Tony Todd • 2025</small></p>
+                    <p class="card-text text-truncate-2">A estudante universitária Stefanie é atormentada por um pesadelo recorrente...</p>
+                    <div class="mt-auto d-flex justify-content-between align-items-center">
+                        <span class="badge bg-secondary">Blu-ray</span>
+                        <a href="#" class="btn btn-sm btn-custom">Detalhes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <nav aria-label="Paginação filmes">
+        <ul class="pagination justify-content-center" id="pagination">
+        </ul>
+    </nav>
+
+    <h2 class="section-title mt-5">Próximas Estreias</h2>
+    <div class="row estreias-section">
+        <div class="col-md-3 mb-4 h-100">
+            <div class="card d-flex flex-column h-100">
+                <span class="position-absolute top-0 end-0 bg-danger text-white p-2">EM BREVE</span>
+                <div class="card-body">
+                    <h5 class="card-title">Guerra dos Mundos</h5>
+                    <p class="card-text">A batalha final pela sobrevivência da humanidade.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4 h-100">
+            <div class="card d-flex flex-column h-100">
+                <span class="position-absolute top-0 end-0 bg-danger text-white p-2">EM BREVE</span>
+                <div class="card-body">
+                    <h5 class="card-title">O Segredo do Oceano</h5>
+                    <p class="card-text">Descubra o mistério que está escondido nas profundezas.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4 h-100">
+            <div class="card d-flex flex-column h-100">
+                <span class="position-absolute top-0 end-0 bg-danger text-white p-2">EM BREVE</span>
+                <div class="card-body">
+                    <h5 class="card-title">Riso Contagioso</h5>
+                    <p class="card-text">A comédia mais esperada do ano.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-4 h-100">
+            <div class="card d-flex flex-column h-100">
+                <span class="position-absolute top-0 end-0 bg-danger text-white p-2">EM BREVE</span>
+                <div class="card-body">
+                    <h5 class="card-title">O Legado</h5>
+                    <p class="card-text">Um segredo de família que mudará tudo.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="footer-placeholder"></div>
+<script src="js/scriptCRUD.js" defer></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const colecaoFilmesContainer = document.getElementById('colecao-filmes');
+        const categoriasBadges = document.querySelectorAll('.category-badge');
+        const paginationContainer = document.getElementById('pagination');
+        const formBusca = document.querySelector('form[action="buscar-filme"]');
+        
+        let todosOsFilmes = [];
+        let filmesFiltrados = [];
+        let paginaAtual = 1;
+        const itensPorPagina = 4;
+
+        function renderizarPagina(pagina) {
+            paginaAtual = pagina;
+            colecaoFilmesContainer.innerHTML = '';
+            const inicio = (pagina - 1) * itensPorPagina;
+            const fim = inicio + itensPorPagina;
+            const filmesDaPagina = filmesFiltrados.slice(inicio, fim);
+            if (filmesDaPagina.length === 0 && pagina === 1) {
+                colecaoFilmesContainer.innerHTML = '<p class="text-center col-12">Nenhum filme encontrado para esta categoria.</p>';
+            }
+            filmesDaPagina.forEach(filme => {
+                const filmeCard = `
+                    <div class="col mb-4 filme-card">
+                        <div class="card h-100">
+                            <img src="${filme.imagem || 'imagem/placeholder.png'}" class="card-img-top" alt="${filme.titulo}">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">${filme.titulo}</h5>
+                                <p class="card-text"><small class="text-muted">${filme.diretor} • ${filme.anoLancamento}</small></p>
+                                <p class="card-text text-truncate-2">${filme.sinopse}</p>
+                                <div class="mt-auto d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-secondary">${filme.formato}</span>
+                                    <a href="visualizar-filme.html?id=${filme.id}" class="btn btn-sm btn-custom">Detalhes</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                colecaoFilmesContainer.insertAdjacentHTML('beforeend', filmeCard);
+            });
+            criarPaginacao();
+        }
+
+        function criarPaginacao() {
+            paginationContainer.innerHTML = '';
+            const totalPaginas = Math.ceil(filmesFiltrados.length / itensPorPagina);
+            if (totalPaginas <= 1) return;
+            const prevLi = document.createElement('li');
+            prevLi.className = `page-item ${paginaAtual === 1 ? 'disabled' : ''}`;
+            prevLi.innerHTML = `<a class="page-link" href="#">Anterior</a>`;
+            prevLi.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (paginaAtual > 1) renderizarPagina(paginaAtual - 1);
+            });
+            paginationContainer.appendChild(prevLi);
+            for (let i = 1; i <= totalPaginas; i++) {
+                const pageLi = document.createElement('li');
+                pageLi.className = `page-item ${i === paginaAtual ? 'active' : ''}`;
+                pageLi.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+                pageLi.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    renderizarPagina(i);
+                });
+                paginationContainer.appendChild(pageLi);
+            }
+            const nextLi = document.createElement('li');
+            nextLi.className = `page-item ${paginaAtual === totalPaginas ? 'disabled' : ''}`;
+            nextLi.innerHTML = `<a class="page-link" href="#">Próximo</a>`;
+            nextLi.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (paginaAtual < totalPaginas) renderizarPagina(paginaAtual + 1);
+            });
+            paginationContainer.appendChild(nextLi);
+        }
+        
+		function filtrarEExibirFilmes(categoria) {
+		    const categoriaLower = categoria.toLowerCase();
+		    if (categoriaLower === 'todos') {
+		        filmesFiltrados = todosOsFilmes;
+		    } else {
+		        filmesFiltrados = todosOsFilmes.filter(f => f.categoria.toLowerCase() === categoriaLower);
+		    }
+		    renderizarPagina(1);
+		}
+		
+        categoriasBadges.forEach(badge => {
+            badge.addEventListener('click', () => {
+                categoriasBadges.forEach(b => b.classList.replace('bg-primary', 'bg-secondary'));
+                badge.classList.replace('bg-secondary', 'bg-primary');
+                const categoriaSelecionada = badge.textContent.trim();
+                filtrarEExibirFilmes(categoriaSelecionada);
+            });
+        });
+        
+        formBusca.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const palavraChave = event.target.elements.palavraChave.value;
+            if (palavraChave) {
+                sessionStorage.setItem('palavraChaveBusca', palavraChave);
+                window.location.href = 'resultado-busca.html';
+            }
+        });
+
+       // ***** ALTERAÇÃO AQUI *****
+       // A URL agora é relativa ('listar-filmes') em vez de absoluta ('/listar-filmes')
+       fetch('listar-filmes')
+            .then(response => response.json())
+            .then(data => {
+                todosOsFilmes = data;
+                filtrarEExibirFilmes('Todos');
+            })
+            .catch(error => {
+                console.error('Erro ao carregar filmes:', error);
+                colecaoFilmesContainer.innerHTML = '<p class="text-center col-12 text-danger">Falha ao carregar os filmes.</p>';
+            });
+    });
+</script>
+</body>
+</html>

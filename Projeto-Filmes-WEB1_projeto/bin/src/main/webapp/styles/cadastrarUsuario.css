@@ -1,0 +1,13 @@
+@charset "UTF-8";
+ body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+        .main-content {
+            flex-grow: 1;
+        }
+        .card {
+            margin-top: 50px;
+        }

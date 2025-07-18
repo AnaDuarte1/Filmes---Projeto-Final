@@ -14,9 +14,8 @@ public class Filme {
     private int duracao;
     private String imagem;
     private double notaMedia;
-    private List<Comentario> comentarios; // NOVO: Lista de comentários
+    private List<Comentario> comentarios;
 
-    // Construtor existente (adapte se necessário)
     public Filme(String titulo, String diretor, int anoLancamento, String sinopse, String idioma, String formato, String categoria, int duracao, String imagem, double notaMedia) {
         this.titulo = titulo;
         this.diretor = diretor;
@@ -28,10 +27,9 @@ public class Filme {
         this.duracao = duracao;
         this.imagem = imagem;
         this.notaMedia = notaMedia;
-        this.comentarios = new ArrayList<>(); // Inicializa a lista de comentários
+        this.comentarios = new ArrayList<>();
     }
 
-    // Getters e Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
     public String getTitulo() { return titulo; }
@@ -55,20 +53,17 @@ public class Filme {
     public double getNotaMedia() { return notaMedia; }
     public void setNotaMedia(double notaMedia) { this.notaMedia = notaMedia; }
 
-    // NOVO: Getter para comentários
     public List<Comentario> getComentarios() {
-        if (this.comentarios == null) { // Garante que a lista nunca seja nula
+        if (this.comentarios == null) { 
             this.comentarios = new ArrayList<>();
         }
         return comentarios;
     }
 
-    // NOVO: Setter para comentários (usado pelo Gson na deserialização)
     public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
     }
 
-    // Método para recalcular a nota média
     public void recalcularNotaMedia() {
         if (comentarios == null || comentarios.isEmpty()) {
             this.notaMedia = 0.0;

@@ -39,12 +39,9 @@
         tituloBusca.textContent = `Resultados da Busca por: "${palavraChave}"`;
         resultadosContainer.innerHTML = '<p class="text-center">Buscando...</p>';
 
-        // Faz a busca no servlet
-        // A URL já está correta, pois o servlet espera um parâmetro 'palavraChave'
         fetch(`buscar-filme?palavraChave=${encodeURIComponent(palavraChave)}`)
             .then(response => {
                 if (!response.ok) {
-                    // Tenta ler a mensagem de erro do JSON se a resposta não for OK
                     return response.json().then(errorData => {
                         throw new Error(errorData.mensagem || 'Erro na resposta do servidor.');
                     });
@@ -52,7 +49,7 @@
                 return response.json();
             })
             .then(filmes => {
-                resultadosContainer.innerHTML = ''; // Limpa a mensagem "Buscando..."
+                resultadosContainer.innerHTML = '';
                 if (filmes.length === 0) {
                     resultadosContainer.innerHTML = '<p class="text-center">Nenhum filme encontrado com este termo.</p>';
                     return;
@@ -81,7 +78,6 @@
                 resultadosContainer.innerHTML = '<p class="text-center text-danger">Ocorreu um erro ao realizar a busca.</p>';
             })
             .finally(() => {
-                // Opcional: limpa a palavra-chave para não interferir em futuras visitas à página
                 sessionStorage.removeItem('palavraChaveBusca');
             });
     });

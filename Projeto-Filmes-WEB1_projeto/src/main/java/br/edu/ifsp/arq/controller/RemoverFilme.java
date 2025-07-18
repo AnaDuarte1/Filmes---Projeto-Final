@@ -37,26 +37,10 @@ public class RemoverFilme extends HttpServlet {
         }
 
         try {
-            String id = request.getParameter("id"); // Mudança aqui: id agora é String
-            // O método removerFilmePorId não retorna boolean, ele apenas remove.
-            // A verificação de sucesso/falha precisaria de uma lógica diferente,
-            // talvez verificando se o filme ainda existe após a tentativa de remoção.
-            // No entanto, para seguir o padrão do ReceitasDAO, que não retorna um boolean,
-            // vamos considerar que a operação foi tentada.
+            String id = request.getParameter("id"); 
+
             FilmeDAO.getInstance().removerFilmePorId(id);
 
-            // Para simular o comportamento anterior, onde 'removido' era um boolean:
-            // Poderíamos buscar o filme novamente e verificar se ele foi removido.
-            // Porém, para manter a simplicidade e a semelhança com o ReceitasDAO,
-            // vamos presumir que se não houver exceção, a remoção foi "tentada".
-            // Se precisar de uma confirmação mais robusta, você terá que implementar a lógica no DAO.
-            
-            // A lógica de "Filme não encontrado ou não pôde ser removido"
-            // seria mais bem tratada se o removerFilmePorId retornasse um boolean.
-            // Como o FilmeDAO agora tem um método que não retorna, a validação
-            // de sucesso ou falha pode ser mais complexa.
-
-            // Por enquanto, vamos manter a resposta de sucesso se não houver exceção.
             resposta.put("status", "sucesso");
             resposta.put("mensagem", "Filme excluído com sucesso (ou tentativa de exclusão realizada).");
             
@@ -64,7 +48,7 @@ public class RemoverFilme extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resposta.put("status", "erro");
             resposta.put("mensagem", "ID do filme inválido.");
-        } catch (Exception e) { // Captura outras exceções que possam ocorrer
+        } catch (Exception e) { 
             e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             resposta.put("status", "erro");

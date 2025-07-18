@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Filme - CineWeb</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="styles/visualizar-filme.css"> 
+
+    <script src="js/scriptCRUD.js" defer></script>
+    
+</head>
+<body>
+
+    <!-- Placeholder para o Header que será carregado pelo script -->
+    <div id="header-placeholder">
+        <!-- Conteúdo de fallback caso o header não carregue -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="home.html">
+                    <i class="fas fa-film me-2"></i>CineWeb
+                </a>
+            </div>
+        </nav>
+    </div>
+
+    <main class="container my-5">
+        <!-- O conteúdo do filme será inserido aqui pelo scriptCRUD.js -->
+        <div id="detalhes-filme-container">
+            <!-- Mensagem de carregamento inicial que será substituída -->
+            <div class="text-center">
+                <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Carregando...</span>
+                </div>
+                <p class="mt-3 fs-5">Carregando detalhes do filme...</p>
+            </div>
+        </div>
+
+        <!-- SEÇÃO DE COMENTÁRIOS: O conteúdo será injetado aqui pelo JavaScript -->
+        <div id="comentarios-section" class="mt-5">
+            <!-- Os comentários e o formulário de adição (se o usuário for avaliador)
+                 serão carregados dinamicamente pelo scriptCRUD.js -->
+            <h3>Comentários</h3>
+            <hr>
+            <p class="text-muted">Carregando comentários...</p>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- O script do Bootstrap é carregado pelo header.html, não precisa aqui -->
+</body>
+</html>

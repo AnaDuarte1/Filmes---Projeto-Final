@@ -31,15 +31,15 @@ public class AtualizarFilme extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         
         try {
-            String id = request.getParameter("id"); // Mudança aqui: id agora é String
-            Filme filme = FilmeDAO.getInstance().getFilme(id); // Usa getFilme(String id)
+            String id = request.getParameter("id"); 
+            Filme filme = FilmeDAO.getInstance().getFilme(id); 
 
             if (filme == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
                 response.getWriter().write("{\"status\":\"erro\", \"mensagem\":\"Filme não encontrado\"}");
                 return;
             }
-            // Returns the movie data as JSON
+            
             response.getWriter().write(new Gson().toJson(filme));
 
         } catch (NumberFormatException e) {
@@ -59,8 +59,7 @@ public class AtualizarFilme extends HttpServlet {
         
         Gson gson = new Gson();
         Map<String, String> resposta = new HashMap<>();
-
-        // 1. Security Check: Only admins can update movies.
+  
         if (usuarioLogado == null || !"admin".equals(usuarioLogado.getTipo())) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             resposta.put("status", "erro");
@@ -70,11 +69,11 @@ public class AtualizarFilme extends HttpServlet {
         }
 
         try {
-            String idString = request.getParameter("id"); // Mudança aqui: id agora é String
-            int id = Integer.parseInt(idString); // Converte para int para setar no objeto Filme
+            String idString = request.getParameter("id"); 
+            int id = Integer.parseInt(idString); 
 
             FilmeDAO filmeDAO = FilmeDAO.getInstance();
-            Filme filmeAtual = filmeDAO.getFilme(idString); // Usa getFilme(String id)
+            Filme filmeAtual = filmeDAO.getFilme(idString); 
 
             if (filmeAtual == null) {
                 response.setStatus(HttpServletResponse.SC_NOT_FOUND);
@@ -85,7 +84,7 @@ public class AtualizarFilme extends HttpServlet {
             }
 
             Part imagemPart = request.getPart("imagem");
-            String imagemPath = filmeAtual.getImagem(); // Keep the old image by default
+            String imagemPath = filmeAtual.getImagem(); 
             
             if (imagemPart != null && imagemPart.getSize() > 0) {
                 String uploadPath = getServletContext().getRealPath("") + File.separator + "imagens";
@@ -97,7 +96,7 @@ public class AtualizarFilme extends HttpServlet {
                 imagemPart.write(uploadPath + File.separator + fileName);
             }
 
-            filmeAtual.setId(id); // Garante que o ID do filme seja mantido
+            filmeAtual.setId(id);
             filmeAtual.setTitulo(request.getParameter("titulo"));
             filmeAtual.setDiretor(request.getParameter("diretor"));
             filmeAtual.setAnoLancamento(Integer.parseInt(request.getParameter("anoLancamento")));
@@ -126,7 +125,6 @@ public class AtualizarFilme extends HttpServlet {
             resposta.put("status", "erro");
             resposta.put("mensagem", "Erro ao processar a requisição: " + e.getMessage());
         } finally {
-            // 5. Send the JSON response
             response.getWriter().write(gson.toJson(resposta));
         }
     }

@@ -17,16 +17,14 @@ import com.google.gson.Gson; // Importar Gson
 import br.edu.ifsp.arq.model.Usuario;
 
 public class UsuarioDAO {
-    private static UsuarioDAO instance; // Instância Singleton
-    private ArrayList<Usuario> listaDeUsuarios; // Lista de usuários em memória
+    private static UsuarioDAO instance; 
+    private ArrayList<Usuario> listaDeUsuarios; 
 
-    // Construtor privado para o Singleton
     private UsuarioDAO() {
         listaDeUsuarios = new ArrayList<>();
-        carregarUsuarios(); // Carrega usuários na inicialização
+        carregarUsuarios(); 
     }
 
-    // Método para obter a instância Singleton
     public static UsuarioDAO getInstance() {
         if (instance == null) {
             instance = new UsuarioDAO();
@@ -43,19 +41,18 @@ public class UsuarioDAO {
     private void carregarUsuarios() {
         File f = new File(getCaminhoArquivo());
         Gson gson = new Gson();
-        listaDeUsuarios.clear(); // Limpa a lista antes de carregar para evitar duplicatas
+        listaDeUsuarios.clear(); 
         int maxId = 0;
 
         if (!f.exists()) {
             try {
-                // Criação manual sem chamar adicionarUsuario()
                 Usuario admin = new Usuario(1, "Admin", "admin@cineweb.com", "admin123", "admin");
                 Usuario avaliador = new Usuario(2, "Avaliador Padrao", "avaliador@cineweb.com", "avaliador123", "avaliador");
 
                 listaDeUsuarios.add(admin);
                 listaDeUsuarios.add(avaliador);
 
-                salvarListaUsuarios(listaDeUsuarios); // grava no arquivo
+                salvarListaUsuarios(listaDeUsuarios);
 
                 return;
             } catch (Exception e) {
@@ -89,8 +86,6 @@ public class UsuarioDAO {
         }
     }
 
-
-    // Método para salvar todos os usuários no arquivo JSON (sobrescrevendo)
     public boolean salvarListaUsuarios(ArrayList<Usuario> lista) {
         Gson gson = new Gson();
         try (FileWriter fw = new FileWriter(getCaminhoArquivo(), StandardCharsets.UTF_8);
@@ -106,26 +101,22 @@ public class UsuarioDAO {
         }
     }
 
-    // Adiciona um novo usuário (usado internamente e para novos registros)
     public boolean adicionarUsuario(Usuario usuario) {
-        // Verifica se o email já existe para evitar duplicatas
+
         if (getListaUsuarios().stream().anyMatch(u -> u.getEmail().equalsIgnoreCase(usuario.getEmail()))) {
-            return false; // Usuário com este email já existe
+            return false; 
         }
         
-        // Atribui um novo ID ao usuário antes de adicionar
-        // Se o usuário já tiver um ID (ex: para admin/avaliador padrão), não sobrescreve
-        if (usuario.getId() == 0) { // Assume 0 como ID temporário para novos usuários
+  
+        if (usuario.getId() == 0) { 
             usuario.setId(lastId()); 
         }
         
-        // Adiciona à lista em memória
-        ArrayList<Usuario> currentList = getListaUsuarios(); // Pega a lista atual do arquivo
-        currentList.add(usuario); // Adiciona o novo usuário
-        return salvarListaUsuarios(currentList); // Salva toda a lista de volta
+        ArrayList<Usuario> currentList = getListaUsuarios(); 
+        currentList.add(usuario); 
+        return salvarListaUsuarios(currentList); 
     }
 
-    // Obtém um usuário pelo ID
     public Usuario getUsuario(String id) {
         try {
             int ID = Integer.parseInt(id);
@@ -134,11 +125,10 @@ public class UsuarioDAO {
                                      .findFirst()
                                      .orElse(null);
         } catch (NumberFormatException e) {
-            return null; // ID inválido
+            return null; 
         }
     }
     
-    // Método para autenticar um usuário
     public Usuario autenticar(String email, String senha) {
         return getListaUsuarios().stream()
                                  .filter(u -> u.getEmail().equals(email) && u.getSenha().equals(senha))
@@ -146,7 +136,6 @@ public class UsuarioDAO {
                                  .orElse(null);
     }
     
-    // Método para buscar um usuário pelo email
     public Usuario buscarPorEmail(String email) {
         return getListaUsuarios().stream()
                                  .filter(u -> u.getEmail().equalsIgnoreCase(email))
@@ -154,14 +143,11 @@ public class UsuarioDAO {
                                  .orElse(null);
     }
     
-    // Retorna a lista de todos os usuários
     public ArrayList<Usuario> getListaUsuarios() {
-        // Recarrega do arquivo para garantir que a lista esteja sempre atualizada
         carregarUsuarios(); 
         return new ArrayList<>(listaDeUsuarios); 
     }
 
-    // Atualiza um usuário existente
     public boolean atualizarUsuario(Usuario usuarioAtualizado) {
         ArrayList<Usuario> lista = getListaUsuarios();
         boolean atualizado = false;
@@ -181,7 +167,6 @@ public class UsuarioDAO {
         return false;
     }
 
-    // Remove um usuário pelo ID
     public void removerUsuarioPorId(String id) {
         try {
             int idInt = Integer.parseInt(id);
