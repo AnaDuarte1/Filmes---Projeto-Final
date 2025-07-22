@@ -22,6 +22,8 @@ public class SessionServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        br.edu.ifsp.arq.dao.UsuarioDAO.getInstance(); 
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         
@@ -31,13 +33,12 @@ public class SessionServlet extends HttpServlet {
         Gson gson = new Gson();
         
         if (usuarioLogado != null) {
-
             response.getWriter().write(gson.toJson(usuarioLogado));
         } else {
-
             Map<String, Boolean> status = new HashMap<>();
             status.put("logado", false);
             response.getWriter().write(gson.toJson(status));
         }
     }
+
 }

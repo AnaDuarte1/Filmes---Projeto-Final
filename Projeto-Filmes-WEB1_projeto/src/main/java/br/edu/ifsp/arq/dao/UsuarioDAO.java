@@ -11,6 +11,11 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.io.Writer;
+import java.io.OutputStreamWriter;
+import java.io.FileOutputStream;
+import java.nio.charset.StandardCharsets;
+
 
 import com.google.gson.Gson; // Importar Gson
 
@@ -46,6 +51,7 @@ public class UsuarioDAO {
 
         if (!f.exists()) {
             try {
+                f.createNewFile(); 
                 Usuario admin = new Usuario(1, "Admin", "admin@cineweb.com", "admin123", "admin");
                 Usuario avaliador = new Usuario(2, "Avaliador Padrao", "avaliador@cineweb.com", "avaliador123", "avaliador");
 
@@ -55,13 +61,13 @@ public class UsuarioDAO {
                 salvarListaUsuarios(listaDeUsuarios);
 
                 return;
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
                 return;
             }
         }
 
-        try (FileReader fr = new FileReader(f, StandardCharsets.UTF_8);
+        try (FileReader fr = new FileReader(f);
              Scanner sc = new Scanner(fr)) {
 
             while (sc.hasNextLine()) {
@@ -88,8 +94,9 @@ public class UsuarioDAO {
 
     public boolean salvarListaUsuarios(ArrayList<Usuario> lista) {
         Gson gson = new Gson();
-        try (FileWriter fw = new FileWriter(getCaminhoArquivo(), StandardCharsets.UTF_8);
-             PrintWriter pw = new PrintWriter(fw)) {
+        try (Writer writer = new OutputStreamWriter(
+                new FileOutputStream(getCaminhoArquivo()), StandardCharsets.UTF_8);
+             PrintWriter pw = new PrintWriter(writer)) {
             for (Usuario u : lista) {
                 String json = gson.toJson(u);
                 pw.println(json);
@@ -100,6 +107,7 @@ public class UsuarioDAO {
             return false;
         }
     }
+
 
     public boolean adicionarUsuario(Usuario usuario) {
 

@@ -55,7 +55,7 @@
             const form = event.target;
             const formData = new FormData(form);
             
-            fetch('/filmes/cadastrar', {
+            fetch('/Projeto_Filmes/cadastrar', {
                 method: 'POST',
                 body: new URLSearchParams(formData)
             })

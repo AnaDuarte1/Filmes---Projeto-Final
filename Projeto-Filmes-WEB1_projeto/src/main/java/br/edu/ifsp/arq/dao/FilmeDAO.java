@@ -49,7 +49,7 @@ public class FilmeDAO {
             return lista;
         }
 
-        try (FileReader fr = new FileReader(f, StandardCharsets.UTF_8)) {
+        try (FileReader fr = new FileReader(f)) {
             lista = gson.fromJson(fr, new TypeToken<ArrayList<Filme>>(){}.getType());
             if (lista == null) {
                 lista = new ArrayList<>();
@@ -65,7 +65,7 @@ public class FilmeDAO {
 
     public boolean salvarListaFilmes(ArrayList<Filme> lista) {
         Gson gson = new Gson();
-        try (FileWriter fw = new FileWriter(getCaminhoArquivo(), StandardCharsets.UTF_8)) {
+        try (FileWriter fw = new FileWriter(getCaminhoArquivo())) {
             gson.toJson(lista, fw);  
             listaDeFilmes = lista;
             return true;

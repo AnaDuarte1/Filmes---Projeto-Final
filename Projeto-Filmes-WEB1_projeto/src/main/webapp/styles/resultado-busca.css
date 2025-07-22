@@ -1,72 +1,81 @@
+/* Tema geral */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #E0FFFF;
+}
 
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #121212;
-        color: #E0FFFF;
-    }
-    
-    .card-title {
-	    font-size: 1.5rem;
-	    margin-bottom: 10px;
-	    color: #ffffff; /* cor clara */
-	    text-align: center; /* centraliza o título */
-	}
-    
+h3#titulo-busca {
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 300;
+}
 
-    h3 {
-        color: #E0FFFF;
-        text-align: center;
-        margin-bottom: 30px;
-    }
+/* Estilo dos Cards */
+.card {
+    background-color: #1f1f1f;
+    border: 1px solid #333;
+    border-radius: 15px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+}
 
-    .card {
-        background-color: #1f1f1f;
-        border: none;
-        border-radius: 15px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 191, 255, 0.2);
+}
 
-    .card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.1);
-    }
+.card-img-top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    object-fit: cover;
+    height: 300px;
+    width: 100%;
+}
 
-    .card-img-top {
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
-        object-fit: cover;
-        height: 250px;
-    }
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Faz o corpo do card crescer para empurrar o botão para baixo */
+}
 
-    .card-title {
-        font-size: 1.5rem;
-        margin-bottom: 10px;
-    }
+/* CORRIGIDO: Regra única para o título do card */
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #ffffff; /* Cor branca para destaque */
+    text-align: center; /* Título centralizado */
+    margin-bottom: 15px;
+}
 
-    .card-text {
-        color: #ccc;
-        font-size: 0.95rem;
-    }
+.card-text {
+    color: #ccc;
+    font-size: 0.9rem;
+}
 
-    .container {
-        padding-top: 40px;
-        padding-bottom: 40px;
-    }
+/* Limita o texto da sinopse a 4 linhas para não quebrar o layout */
+.card-text.sinopse {
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    margin-bottom: 1rem;
+}
 
-    .no-result {
-        text-align: center;
-        font-size: 1.5rem;
-        margin-top: 50px;
-        color: #bbb;
-    }
+/* ADICIONADO: Estilo para o botão customizado */
+.btn-custom {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #ffffff;
+    font-weight: 500;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    margin-top: auto; /* Alinha o botão na parte inferior do card */
+}
 
-    @media (max-width: 768px) {
-        .card-img-top {
-            height: 200px;
-        }
-    }
+.btn-custom:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+    color: #ffffff;
+}

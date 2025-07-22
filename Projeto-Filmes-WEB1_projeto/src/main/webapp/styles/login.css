@@ -1,73 +1,90 @@
-/* --- VARIAVEIS GLOBAIS DE ESTILO --- */
+/* --- VARIÁVEIS GLOBAIS --- */
 :root {
-    --cor-fundo: #0c0f1a;
-    --cor-texto: #e0e0e0;
-    --cor-titulo: #ffffff;
-    --cor-destaque: #3d9eff;
-    --cor-destaque-hover: #65b4ff;
+    --cor-destaque: #4facfe;
+    --cor-destaque-hover: #00f2fe;
     --fonte-titulo: 'Montserrat', sans-serif;
     --fonte-corpo: 'Lato', sans-serif;
 }
 
-/* --- ESTILO DO CORPO DA PÁGINA --- */
+/* --- CORPO COM IMAGEM DE FUNDO BONITA E MODERNA --- */
 body {
-    display: flex; /* Permite que o footer grude no final */
-    flex-direction: column;
+    margin: 0;
+    padding: 0;
     min-height: 100vh;
     font-family: var(--fonte-corpo);
-    background: linear-gradient(rgba(12, 15, 26, 0.85), rgba(12, 15, 26, 0.95)), url(https://images.unsplash.com/photo-1542204165-65bf26472b9b?q=80&w=1974) no-repeat center center;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom, rgba(12, 15, 26, 0.85), rgba(12, 15, 26, 0.95)),
+        url('https://images.unsplash.com/photo-1535223289827-42f1e9919769?q=80&w=1974&auto=format&fit=crop') no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
 }
 
-/* --- ÁREA PRINCIPAL DO LOGIN --- */
-/* Esta nova classe centraliza o formulário e cria o espaço com o header */
-.login-main {
-    flex-grow: 1; /* Faz esta seção crescer para ocupar o espaço disponível */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    padding-top: 100px;
+/* --- CENTRALIZAÇÃO DO CONTEÚDO PRINCIPAL --- */
+.main-content {
+    flex-grow: 1;
+    padding: 40px 15px;
 }
 
-/* --- CONTAINER DO LOGIN (EFEITO DE VIDRO) --- */
-.login-container {
-    width: 100%;
-    max-width: 450px;
-    padding: 3rem;
-    border-radius: 20px;
-    background: rgba(30, 40, 60, 0.5);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+/* --- CARD DE LOGIN --- */
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
 }
 
-/* --- CABEÇALHO DO LOGIN --- */
-.login-header {
-    color: var(--cor-texto);
-    text-align: center;
-    margin-bottom: 2.5rem;
+/* --- TÍTULO --- */
+.card-title {
     font-family: var(--fonte-titulo);
-    font-size: 2.5rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-.login-header::before {
-    display: block;
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    margin-top: 20px;
-}
-
-/* --- CAMPOS DO FORMULÁRIO --- */
-.form-label {
-    color: var(--cor-texto);
+    color: #0c0f1a;
+    font-size: 2rem;
     font-weight: 700;
 }
 
+/* --- LABELS DOS CAMPOS --- */
+.form-label {
+    color: #111;
+    font-weight: 600;
+}
+
+/* --- CAMPOS DE INPUT --- */
 .form-control {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 0.6rem 0.75rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--cor-destaque);
+    box-shadow: 0 0 0 0.2rem rgba(79, 172, 254, 0.25);
+    outline: none;
+}
+
+/* --- BOTÃO --- */
+.btn-primary {
+    background: var(--cor-destaque);
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 0.6rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: var(--cor-destaque-hover);
+}
+
+/* --- TEXTO DO LINK DE CADASTRO --- */
+.text-center a {
+    color: var(--cor-destaque);
+    text-decoration: none;
+}
+
+.text-center a:hover {
+    text-decoration: underline;
 }

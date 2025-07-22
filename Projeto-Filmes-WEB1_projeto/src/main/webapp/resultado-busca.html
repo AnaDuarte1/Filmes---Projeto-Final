@@ -6,25 +6,23 @@
     <title>Resultados da Busca - CineWeb</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
     <link rel="stylesheet" href="styles/resultado-busca.css">
-
 </head>
-<body class="d-flex flex-column min-vh-100" id="pagina-busca">>
+
+<body class="d-flex flex-column min-vh-100">
 
     <div id="header-placeholder"></div>
 
-   <main class="container mt-4 flex-grow-1">
-    <h3 id="titulo-busca">Resultados da Busca</h3>
-    <div id="resultados-container" class="row">
-        </div>
-        
-     <div id="footer-placeholder"></div>
-    <script src="js/scriptCRUD.js" defer></script>
-    
-</main>
+    <main class="container mt-4 flex-grow-1">
+        <h3 id="titulo-busca">Resultados da Busca</h3>
+        <div id="resultados-container" class="row">
+            </div>
+    </main>
 
-<script>
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/scriptCRUD.js" defer></script> <script>
     document.addEventListener('DOMContentLoaded', function() {
         const palavraChave = sessionStorage.getItem('palavraChaveBusca');
         const resultadosContainer = document.getElementById('resultados-container');
@@ -56,16 +54,17 @@
                 }
 
                 filmes.forEach(filme => {
+                    // Template do Card melhorado
                     const filmeCard = `
-                        <div class="col-md-4 mb-4">
+                        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
                                 <img src="${filme.imagem || 'imagem/placeholder.png'}" class="card-img-top" alt="${filme.titulo}">
-                                <div class="card-body">
+                                <div class="card-body d-flex flex-column">
                                     <h5 class="card-title">${filme.titulo}</h5>
                                     <p class="card-text"><strong>Diretor:</strong> ${filme.diretor}</p>
                                     <p class="card-text"><strong>Ano:</strong> ${filme.anoLancamento}</p>
-                                    <p class="card-text">${filme.sinopse}</p>
-                                    <a href="visualizar-filme.html?id=${filme.id}" class="btn btn-custom">Ver Detalhes</a>
+                                    <p class="card-text sinopse">${filme.sinopse}</p>
+                                    <a href="visualizar-filme.html?id=${filme.id}" class="btn btn-custom mt-auto">Ver Detalhes</a>
                                 </div>
                             </div>
                         </div>
@@ -78,10 +77,10 @@
                 resultadosContainer.innerHTML = '<p class="text-center text-danger">Ocorreu um erro ao realizar a busca.</p>';
             })
             .finally(() => {
-                sessionStorage.removeItem('palavraChaveBusca');
+                // Manter o item para o caso de o usuário recarregar a página
+                // sessionStorage.removeItem('palavraChaveBusca'); 
             });
     });
-</script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </script>
 </body>
 </html>

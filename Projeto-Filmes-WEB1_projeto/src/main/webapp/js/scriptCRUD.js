@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     carregarComponente('footer-placeholder', 'footer.html');
 });
 
+// Principais Fetchs em relação ao Crud
 function carregarComponente(idPlaceholder, urlComponente, callback) {
     const placeholder = document.getElementById(idPlaceholder);
     if (placeholder) {
@@ -27,8 +28,10 @@ function carregarComponente(idPlaceholder, urlComponente, callback) {
     }
 }
 
+
 function inicializarPagina() {
-    fetch('/filmes/session-status') 
+	// Verifica status do usuario
+    fetch('/Projeto_Filmes/session-status') 
         .then(response => {
            
             const contentType = response.headers.get("content-type");
@@ -104,7 +107,8 @@ function atualizarHeader(usuario) {
 }
 
 function logout() {
-    fetch('/filmes/logout', { method: 'POST' })
+	//Realiza o logout
+    fetch('/Projeto_Filmes/logout', { method: 'POST' })
         .then(response => {
             if (response.ok) {
                 window.location.href = 'home.html'; 
@@ -127,7 +131,7 @@ function carregarDetalhesFilme(usuario) {
         return;
     }
 
-    fetch(`/filmes/visualizar-filme?id=${filmeId}`)
+    fetch(`/Projeto_Filmes/visualizar-filme?id=${filmeId}`)
         .then(response => {
             const contentType = response.headers.get("content-type");
             if (!response.ok || !(contentType && contentType.includes("application/json"))) {
@@ -201,7 +205,7 @@ function excluirFilme(id, titulo) {
     const tituloEscapado = titulo.replace(/'/g, "\\'"); 
     console.log(`Tentando excluir o filme: "${tituloEscapado}" (ID: ${id})`); 
     
-    fetch('/filmes/excluir-filme', {
+    fetch('/Projeto_Filmes/excluir-filme', {
         method: 'POST',
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
         body: `id=${id}`
@@ -261,7 +265,7 @@ function carregarComentariosDoFilme(filmeId, usuario) {
             feedbackDiv.innerHTML = ''; 
 
             
-            fetch('/filmes/adicionar-comentario', {
+            fetch('/Projeto_Filmes/adicionar-comentario', {
                 method: 'POST',
                 body: new URLSearchParams(formData)
             })
@@ -296,7 +300,7 @@ function carregarComentariosDoFilme(filmeId, usuario) {
     }
 
    
-    fetch(`/filmes/listar-comentarios?filmeId=${filmeId}`) 
+    fetch(`/Projeto_Filmes/listar-comentarios?filmeId=${filmeId}`) 
         .then(response => {
             const contentType = response.headers.get("content-type");
             if (!response.ok || !(contentType && contentType.includes("application/json"))) {
